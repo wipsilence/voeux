@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}AgoraVoeux II{% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
+        <link rel="stylesheet" href="{{ asset('css/style.css') }}" type="text/css" />
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+		 <meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script
+			  src="https://code.jquery.com/ui/1.11.3/jquery-ui.js"
+			  integrity="sha256-0vBSIAi/8FxkNOSKyPEfdGQzFDak1dlqFKBYqBp1yC4="
+			  crossorigin="anonymous"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<script src="{{ asset('js/app.js') }}"></script>
+
+    </head>
+    <body>
+	<div id="header">
+		<div id="logo">
+			<h1>AgoraVoeux II</h1>
+		</div>
+		<div id="menu">
+			<ul>
+				<li class="encours" ><div class="img accueil encours" ><a href="/">Accueil</a></div></li>
+				<li><div class="img agent"><a href="/agent">Agent</a></div></li>
+				<li><div class="img voeux"><a href="/liste">Voeux</a></div></li>
+<!--
+				<li><div class="img contact"><a>Contact</a></div></li>
+-->
+			</ul>
+		</div>
+	</div>
+	<div class="flash-message" class="alert alert-info" role="alert">
+        {% for flashMessage in app.session.flashbag.all() %}
+			{% for message in flashMessage %}
+				{{ message }}
+			{% endfor %}
+        {% endfor %}
+	</div>
+	{% block body %}{% endblock %}
+	{% block javascripts %}{% endblock %}
+<!--
+    <div id="footer">
+	</div>
+-->
+    </body>
+</html>
