@@ -1,5 +1,4 @@
 voeux
 =====
 
-A Symfony project created on June 6, 2017, 1:35 pm.
-# voeux
+Un projet Symfony créé le 6 juin 2017
