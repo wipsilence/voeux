@@ -1,0 +1,31 @@
+{%extends "::base.html.twig" %}
+	{% block body %}
+	<style>
+		tr.clickable-row:hover {
+			color:blue; 
+		}
+	</style>
+	<div class="tableau">
+		<h3>Liste de tous les agents</h3>
+
+		<div>
+			<script>
+				jQuery(document).ready(function($) {
+					$(".clickable-row").click(function() {
+						window.location = $(this).data("href");
+					});
+				});
+			</script>
+			<table class="table table-striped">
+			<thead>
+				<tr><th>Nom</th><th>Prénom</th><th>Grade</th><th>Domicile</th></tr>
+			</thead>
+			<tbody>
+			{% for agent in liste_agent %}
+				<tr class='clickable-row' data-href='http://192.168.122.100:8080/agent/edit/{{ agent.id }}'><td>{{ agent.nom }}</td><td>{{ agent.prenom }}</td><td>{{ agent.grade }}</td><td>{{ agent.domicile.nom }}</td></tr>
+			{% endfor %}
+			</tbody>
+			</table>
+		</div>
+	</div>
+{% endblock %}

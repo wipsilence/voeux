@@ -1,0 +1,13 @@
+{%extends "::base.html.twig" %}
+{% block body %}
+    <h1>Liste {{ liste.nom }}</h1>
+    <h2>Domicile {{ domicile.nom }}</h2>
+    <table class="table table-condensed">
+    <thead><tr><th>Résidence</th></tr></thead>
+    <tbody>
+	{% for ville,dist in villes %}
+		<tr><td>{{ ville }} {{ dist }}</td></tr>
+	{% endfor %}
+    </tbody>
+    </table>
+{% endblock %}

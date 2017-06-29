@@ -1,0 +1,118 @@
+{%extends "::base.html.twig" %}
+{% block body %}
+<div class = "formulaire">
+	<h3>Formulaire d'édition d'un agent</h3>
+
+	<div class="well">
+		{{form_start(formulaire,{'attr': {'class': 'form-horizontal'}})}}
+
+		{# Les erreurs générales du formulaire. #}
+		{{ form_errors(formulaire) }}
+
+		{# Génération du label + error + widget pour un champ. #}
+		{# form_row(form.nomDuChamps) #}
+
+		{# Génération manuelle et éclatée : #}
+		<div class="form-group">
+
+			{# Génération du label. #}
+			{{ form_label(formulaire.nom, "Nom", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+
+			{# Affichage des erreurs pour ce champ précis. #}
+			{{ form_errors(formulaire.nom) }}
+
+			<div class="col-sm-10">
+				{# Génération de l'input. #}
+				{{ form_widget(formulaire.nom,{'attr': {'class': 'form-control'}}) }}
+			</div>
+
+		</div>
+
+		<div class="form-group">
+
+			{{ form_label(formulaire.prenom, "Prénom", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+			{{ form_errors(formulaire.prenom) }}
+
+			<div class="col-sm-10">
+				{{ form_widget(formulaire.prenom, {'attr': {'class': 'form-control'}}) }}
+			</div>
+
+		</div>
+
+		<div class="form-group">
+
+			{{ form_label(formulaire.grade, "Grade de l'agent", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+			{{ form_errors(formulaire.prenom) }}
+
+			<div class="col-sm-10">
+				{{ form_widget(formulaire.grade, {'attr': {'class': 'form-control'}}) }}
+			</div>
+
+		</div>
+
+		<div class="form-group">
+			<script>
+				var liste = [];
+
+				{% for ville in touteslesvilles %}
+					liste.push('{{ ville.nom }}');
+				{% endfor %}
+
+				$(document).ready(function(){
+					$('#av_listevoeubundle_agent_domicile').autocomplete({
+						source : function(request,response){
+							var re = $.ui.autocomplete.escapeRegex(request.term);
+							var matcher = new RegExp( "^" + re, "i" );
+							var a = $.grep( liste, function(item,index){
+								return matcher.test(item);
+								});
+							response(a);
+						},
+						minLength : 3,
+					});
+				});
+			</script>
+
+			{{ form_label(formulaire.domicile, "Ville de résidence", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+			{{ form_errors(formulaire.domicile) }}
+
+			<div class="col-sm-10">
+				{{ form_widget(formulaire.domicile, {'attr': {'class': 'form-control'}}) }}
+			</div>
+		</div>
+
+		<div class="form-group">
+
+			{{ form_label(formulaire.username, "Pseudo de connexion", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+			{{ form_errors(formulaire.username) }}
+
+			<div class="col-sm-10">
+				{{ form_widget(formulaire.username, {'attr': {'class': 'form-control'}}) }}
+			</div>
+
+		</div>
+
+		
+
+		<div class="form-group">
+
+			{{ form_label(formulaire.email, "Adresse de messagerie", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+			{{ form_errors(formulaire.email) }}
+
+			<div class="col-sm-10">
+				{{ form_widget(formulaire.email, {'attr': {'class': 'form-control'}}) }}
+			</div>
+
+		</div>
+
+		{# Pour le bouton, pas de label ni d'erreur, on affiche juste le widget #}
+		{{ form_widget(formulaire.submit, {'attr': {'class': 'btn btn-primary'}}) }}
+	</div>
+	{# Génération automatique des champs pas encore écrits. #}
+	{{ form_rest(formulaire) }}
+
+	{# Fermeture de la balise <form> du formulaire HTML #}
+	{{form_end(formulaire)}}
+</div>
+
+{% endblock %}

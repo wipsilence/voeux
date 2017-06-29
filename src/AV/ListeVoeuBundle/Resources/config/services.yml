@@ -1,0 +1,10 @@
+services:
+#    av_liste_voeu.example:
+#        class: AV\ListeVoeuBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
+    av_listevoeu.antispam:
+        class: AV\ListeVoeuBundle\Antispam\AVAntispam
+        arguments:
+            - "@mailer"
+            - "%locale%"
+            - 50

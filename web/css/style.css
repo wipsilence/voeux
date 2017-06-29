@@ -1,0 +1,153 @@
+@font-face{
+	font-family: 'Lato-Regular';
+	src: url('Lato-Regular.ttf');
+	font-weight: normal;
+	font-style: normal;
+}
+
+body {
+	color:#212121;
+	font-size: 14px;
+	font-family: Lato-Regular,Tahoma,Arial,Verdana;
+	margin:0;
+	padding:0;
+}
+
+/* -----------Header---------- */
+#header{
+	margin:0;
+	background:url(../images/header.jpg) repeat-x top left;
+	width: 100%;
+	height: 125px; 
+}
+/* -----------Logo---------- */
+#logo{
+	width:1024px;
+	margin: auto auto 0 auto;
+	padding: 0;
+	vertical-align: baseline;
+}
+
+#logo h1{
+	float: left;
+	width: 230px;
+	font-size:140%;
+	text-transform: uppercase; 
+	bottom:0;
+	padding-bottom:0;
+	color:#fff;
+}
+/* -----------Menu---------- */
+#menu {
+	float: left;
+	width:516px;
+	margin: 0 0 0 75px;
+	
+}
+#menu ul{
+	margin: 0;
+	padding: 0;
+	
+}
+#menu ul li{
+	list-style: none;
+	float: left;
+	width: 129px;
+	margin: 0 auto;
+	padding: 0 auto;
+	font-size: 24px;
+	text-align:center;
+	cursor : pointer;
+}
+#menu ul li .img{
+	width:129px;
+	height: 125px;
+	position:relative;
+}
+#menu ul li a{
+	display:block;
+	color:#fff;
+	text-decoration:none;
+	position:absolute;
+	bottom:20px;
+	width:129px;
+}
+
+#menu ul .encours.img, #menu ul li:hover .img{
+	background-position:bottom left;
+}
+#menu ul .encours.img a{
+	color:#bbdefb;
+}
+
+#menu ul li:hover .img:not(.encours){
+	opacity: 0.2;
+    filter: alpha(opacity=20);
+}
+#menu ul li .accueil{
+	background:url(../images/home.png);
+}
+#menu ul li .agent{
+	background:url(../images/agent.png);
+}
+#menu ul li .voeux{
+	background:url(../images/voeux.png);
+}
+#menu ul li .contact{
+	background:url(../images/contact.png);
+}
+
+/*----------Contener-------*/
+
+#contener{
+	width: 1024px;
+	margin:0 auto;
+	padding: 0;
+}
+#contener .image{
+	width: 360px;
+	float:left;
+}
+#contener .image img{
+	width: 100%;
+	height:100%;
+
+}
+#contener .texte{
+	width: 440px;
+	float:left;
+}
+#contener .texte h1{
+	font-size:24px;
+}
+#contener .texte h2{
+	font-size:18px;
+} 
+#contener .texte h2:firstletter{
+  padding-left: 20px;
+} 
+/*----------Footer---------*/
+#footer{
+	background-color: #bdbdbd;
+	width:100%;
+	height:50px;
+	position: absolute;
+	bottom:0;
+
+}
+/*----------Tableau---------*/
+.tableau {
+	width: 1024px;
+	margin: 0 auto;
+	padding:0;
+}
+/*---------Formulaire--------*/
+.formulaire {
+	width: 1024px;
+	margin: auto;
+	padding:0;
+}
+.formulaire .well {
+	width: 700px;
+	margin: auto;
+}

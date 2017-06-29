@@ -1,0 +1,39 @@
+accueil:
+    path:     /
+    defaults: {_controller: AVListeVoeuBundle:Home:index}
+add_agent:
+    path:     /agent/add
+    defaults: {_controller: AVListeVoeuBundle:Agent:add}
+edit_agent:
+    path:     /agent/edit/{agent_id}
+    defaults: {_controller: AVListeVoeuBundle:Agent:edit}
+    requirements:
+        agent_id: \d+
+av_liste_agent_view:
+    path:     /agent
+    defaults: {_controller: AVListeVoeuBundle:Agent:index}
+liste_choix:
+    path:     /liste
+    defaults: {_controller: AVListeVoeuBundle:Liste:index}
+liste_add:
+    path:     /liste/add
+    defaults: {_controller: AVListeVoeuBundle:Liste:ajout}
+liste_agent:
+    path:     /liste/{list_id}
+    defaults: {_controller: AVListeVoeuBundle:Liste:index}
+    requirements:
+        list_id: \d+
+liste_supp:
+    path:     /liste/supp/{list_id}
+    defaults: {_controller: AVListeVoeuBundle:Liste:supp}
+    requirements:
+        list_id: \d+
+fos_user_security_login:
+    path: /login
+    defaults: {_controller: FOSUserBundle:Security:login}
+
+fos_user_security_check:
+    path: /login_check
+
+fos_user_security_logout:
+    path: /logout

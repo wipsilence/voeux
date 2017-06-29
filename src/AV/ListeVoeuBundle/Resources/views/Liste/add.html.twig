@@ -1,0 +1,32 @@
+{%extends "::base.html.twig" %}
+{% block body %}
+<div class = "formulaire">
+    <h1>Nouvelle liste de {{ agent.nom }} {{ agent.prenom }}</h1>
+
+    <div class="well">
+        {{form_start(formulaire,{'attr': {'class': 'form-horizontal'}})}}
+
+        {# Les erreurs générales du formulaire #}
+        {{ form_errors(formulaire) }}
+
+        <div class="form-group">
+            {{ form_label(formulaire.nom, "Nom de la liste", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+            {{ form_errors(formulaire.nom) }}
+            <div class="col-sm-9">
+                {{ form_widget(formulaire.nom, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(formulaire.methode, "Méthode de tri", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+            {{ form_errors(formulaire.methode) }}
+            <div class="col-sm-9">
+                {{ form_widget(formulaire.methode, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        {# Pour le bouton, pas de label ni d'erreur, on affiche juste le widget #}
+        {{ form_widget(formulaire.valider, {'attr': {'class': 'btn btn-primary'}}) }}
+
+        {{form_end(formulaire)}}
+    </div>
+</div>
+{% endblock %}
