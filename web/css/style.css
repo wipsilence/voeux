@@ -4,117 +4,143 @@
 	font-weight: normal;
 	font-style: normal;
 }
-
-body {
+@font-face{
+	font-family: 'Lato-Bold';
+	src: url('Lato-Bold.ttf');
+	font-weight: normal;
+	font-style: normal;
+}
+#mien {
 	color:#212121;
 	font-size: 14px;
 	font-family: Lato-Regular,Tahoma,Arial,Verdana;
 	margin:0;
 	padding:0;
 }
-
 /* -----------Header---------- */
-#header{
+#top{
 	margin:0;
-	background:url(../images/header.jpg) repeat-x top left;
+	padding:0;
+	background-color:#ff5353;
 	width: 100%;
-	height: 125px; 
+	height: 65px; 
 }
-/* -----------Logo---------- */
-#logo{
-	width:1024px;
+
+#header{
+	width:75%;
+	height: 100%;
 	margin: auto auto 0 auto;
 	padding: 0;
-	vertical-align: baseline;
+}
+/* -----------Logo---------- */
+#logo {
+	float: left;
+	width: 30%;
+	height: 100%;
 }
 
 #logo h1{
 	float: left;
-	width: 230px;
+	width: 100%;
+	height: 100%;
 	font-size:140%;
-	text-transform: uppercase; 
-	bottom:0;
-	padding-bottom:0;
 	color:#fff;
+	font-family: Lato-Regular;
+	margin:0;
+	padding-top:30px;
 }
 /* -----------Menu---------- */
 #menu {
 	float: left;
-	width:516px;
-	margin: 0 0 0 75px;
-	
+	width:70%;
+	height:100%;
+	margin: 0;
 }
 #menu ul{
+	height:100%;
 	margin: 0;
-	padding: 0;
-	
+	padding: 0;	
 }
 #menu ul li{
 	list-style: none;
 	float: left;
-	width: 129px;
+	width: 130px;
+	height:100%;
 	margin: 0 auto;
 	padding: 0 auto;
-	font-size: 24px;
 	text-align:center;
-	cursor : pointer;
-}
-#menu ul li .img{
-	width:129px;
-	height: 125px;
-	position:relative;
 }
 #menu ul li a{
-	display:block;
-	color:#fff;
+	height:100%;
+	width:100%;
+	float: left;
 	text-decoration:none;
-	position:absolute;
-	bottom:20px;
-	width:129px;
+	color:#fff;
+	font-size:20px;
+	font-family: Lato-Regular;
+	padding: 34px 0 0 0; 
+}
+#menu ul li.img:hover:not(.encours) a{
+	color:white;
+	font-family: 'Lato-Bold';
+	padding: 28px 0 0 0; 
+}
+#menu ul li.img.encours a{
+    color:white;
+	font-family: 'Lato-Regular';
+	padding: 28px 0 0 0;
+}
+#menu ul li.img.accueil{
+	background:url(../images/home.png);
+}
+#menu ul li.img.accueil:hover,#menu ul li.img.accueil.encours {
+	height:71px;
+	background-position:bottom left;
+	padding-top:6px;
+}
+#menu ul li.img.accueil.encours {
+	opacity: 0.95;
+    filter: alpha(opacity=95);
+}
+#menu ul li.img.agent{
+	background:url(../images/agent.png);
+}
+#menu ul li.img.agent:hover{
+	height:71px;
+	background-position:bottom left;
+	padding-top:6px;
+} 
+
+#menu ul li.img.voeux{
+	background:url(../images/voeux.png);
+}
+#menu ul li.img.voeux:hover{
+	height:71px;
+	background-position:bottom left;
+	padding-top:6px;
 }
 
-#menu ul .encours.img, #menu ul li:hover .img{
-	background-position:bottom left;
-}
 #menu ul .encours.img a{
 	color:#bbdefb;
 }
-
-#menu ul li:hover .img:not(.encours){
-	opacity: 0.2;
-    filter: alpha(opacity=20);
-}
-#menu ul li .accueil{
-	background:url(../images/home.png);
-}
-#menu ul li .agent{
-	background:url(../images/agent.png);
-}
-#menu ul li .voeux{
-	background:url(../images/voeux.png);
-}
-#menu ul li .contact{
-	background:url(../images/contact.png);
-}
-
 /*----------Contener-------*/
 
 #contener{
-	width: 1024px;
+	width:75%;
 	margin:0 auto;
 	padding: 0;
 }
 #contener .image{
-	width: 360px;
+	width: 30%;
 	float:left;
 }
 #contener .image img{
 	width: 100%;
 	height:100%;
-
+	
 }
 #contener .texte{
-	width: 440px;
+	width: 70%;
 	float:left;
 }
 #contener .texte h1{
@@ -130,24 +156,30 @@ body {
 #footer{
 	background-color: #bdbdbd;
 	width:100%;
-	height:50px;
+	height:20px;
 	position: absolute;
 	bottom:0;
 
 }
 /*----------Tableau---------*/
 .tableau {
-	width: 1024px;
+	width: 75%px;
 	margin: 0 auto;
 	padding:0;
 }
 /*---------Formulaire--------*/
 .formulaire {
-	width: 1024px;
-	margin: auto;
+	width: 75%;
+	margin: 8px auto ;
 	padding:0;
 }
 .formulaire .well {
 	width: 700px;
 	margin: auto;
+}
+/*---------Log--------*/
+#fos_log {
+	width: 50%;
+	margin: auto;
+	padding:0;
 }

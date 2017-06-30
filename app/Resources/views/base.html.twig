@@ -17,22 +17,25 @@
 		<script src="{{ asset('js/app.js') }}"></script>
 
     </head>
-    <body>
-	<div id="header">
-		<div id="logo">
-			<h1>AgoraVoeux II</h1>
+    <body class="mien">
+
+	<div id="top">
+		
+		<div id="header">
+			<div id="logo">
+				<h1>AgoraVoeux II</h1>
+			</div>
+			<div id="menu">
+				<ul>
+					<li class="encours img accueil" ><a href="/">Accueil</a></li>
+					<li class="img agent"><a href="/agent">Agent</a></li>
+					<li class="img voeux"><a href="/liste">Voeux</a></li>
+				</ul>
+			</div>
 		</div>
-		<div id="menu">
-			<ul>
-				<li class="encours" ><div class="img accueil encours" ><a href="/">Accueil</a></div></li>
-				<li><div class="img agent"><a href="/agent">Agent</a></div></li>
-				<li><div class="img voeux"><a href="/liste">Voeux</a></div></li>
-<!--
-				<li><div class="img contact"><a>Contact</a></div></li>
--->
-			</ul>
-		</div>
+		
 	</div>
+
 	<div class="flash-message" class="alert alert-info" role="alert">
         {% for flashMessage in app.session.flashbag.all() %}
 			{% for message in flashMessage %}
@@ -40,11 +43,14 @@
 			{% endfor %}
         {% endfor %}
 	</div>
+	<div id="contener">
 	{% block body %}{% endblock %}
 	{% block javascripts %}{% endblock %}
-<!--
+    </div>
     <div id="footer">
 	</div>
--->
+	
+
     </body>
+
 </html>
