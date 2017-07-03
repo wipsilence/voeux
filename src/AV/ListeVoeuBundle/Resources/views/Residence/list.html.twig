@@ -1,0 +1,31 @@
+{%extends "::base.html.twig" %}
+	{% block body %}
+	<style>
+		tr.clickable-row:hover {
+			color:blue; 
+		}
+	</style>
+	<div class="tableau">
+		<h3>Liste de toutes les résidences</h3>
+
+		<div>
+			<script>
+				jQuery(document).ready(function($) {
+					$(".clickable-row").click(function() {
+						window.location = $(this).data("href");
+					});
+				});
+			</script>
+			<table class="table table-striped">
+			<thead>
+				<tr><th>Nom</th></tr>
+			</thead>
+			<tbody>
+			{% for residence in liste_residence %}
+				<tr class='clickable-row' data-href='residence/edit/{{ residence.id }}'><td>{{ residence.nom }}</td></tr>
+			{% endfor %}
+			</tbody>
+			</table>
+		</div>
+	</div>
+{% endblock %}
