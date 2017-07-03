@@ -5,7 +5,7 @@
         <title>{% block title %}AgoraVoeux II{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
         <link rel="stylesheet" href="{{ asset('css/style.css') }}" type="text/css" />
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon2.ico') }}" />
 		 <meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -15,10 +15,21 @@
 			  crossorigin="anonymous"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 		<script src="{{ asset('js/app.js') }}"></script>
+		<script language=javascript type="text/javascript">
+		function addCode() {
+			//~ var CheminComplet = document.location.href;
+			//~ var NomDuFichier     = CheminComplet.substring(CheminComplet.indexOf( "/" ,7),);
+			//~ alert ('NomDuFichier : \n'+NomDuFichier+' \n\n CheminComplet :\n ' +CheminComplet); 
+			var lien = document.getElementsByTagName('li.liimg');
+			for (var i = 0, c = lien.length ; i < c ; i++) {
+				alert('Element n° ' + (i + 1) + ' : ' + lien[i]);
 
-    </head>
-    <body class="mien">
-
+			}
+		}
+		</script>
+	</head>
+    <body onload= "addCode();" class="mien">
+	
 	<div id="top">
 		
 		<div id="header">
@@ -27,29 +38,32 @@
 			</div>
 			<div id="menu">
 				<ul>
-					<li class="encours img accueil" ><a href="/">Accueil</a></li>
-					<li class="img agent"><a href="/agent">Agent</a></li>
-					<li class="img voeux"><a href="/liste">Voeux</a></li>
+					<li class="encours liimg accueil" ><a href="/">Accueil</a></li>
+					<li class="liimg agent"><a href="/agent">Agent</a></li>
+					<li class="liimg voeux"><a href="/liste">Voeux</a></li>
 				</ul>
 			</div>
 		</div>
 		
 	</div>
 
-	<div class="flash-message" class="alert alert-info" role="alert">
+	
         {% for flashMessage in app.session.flashbag.all() %}
+			<div class="flash-message alert alert-info" role="alert">
 			{% for message in flashMessage %}
 				{{ message }}
+			</div>
 			{% endfor %}
         {% endfor %}
-	</div>
-	<div id="contener">
-	{% block body %}{% endblock %}
-	{% block javascripts %}{% endblock %}
-    </div>
-    <div id="footer">
-	</div>
 	
+	<div id="contener">
+		
+	{% block body %}{% endblock %}
+	{% block javascripts %}{% endblock %}	
+	
+    </div>
+	<div id="footer">
+	</div>
 
     </body>
 
