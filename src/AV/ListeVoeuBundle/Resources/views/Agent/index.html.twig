@@ -22,7 +22,7 @@
 			</thead>
 			<tbody>
 			{% for agent in liste_agent %}
-				<tr class='clickable-row' data-href='http://192.168.122.100:8080/agent/edit/{{ agent.id }}'><td>{{ agent.nom }}</td><td>{{ agent.prenom }}</td><td>{{ agent.grade }}</td><td>{{ agent.domicile.nom }}</td></tr>
+				<tr class='clickable-row' data-href='agent/edit/{{ agent.id }}'><td>{{ agent.nom }}</td><td>{{ agent.prenom }}</td><td>{{ agent.grade }}</td><td>{{ agent.domicile.nom }}</td></tr>
 			{% endfor %}
 			</tbody>
 			</table>
