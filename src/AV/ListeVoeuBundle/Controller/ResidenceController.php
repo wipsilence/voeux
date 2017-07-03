@@ -19,7 +19,8 @@ class ResidenceController extends Controller
 	public function listAction()
 	{
 		$em = $this->getDoctrine()->getManager();
-		$liste_residence = $em->getRepository('AVListeVoeuBundle:Residence')->findAll();
+		//$liste_residence = $em->getRepository('AVListeVoeuBundle:Residence')->findAll();
+		$liste_residence = $em->getRepository('AVListeVoeuBundle:Residence')->findBy(array(), array('nom' => 'ASC'));
 		return $this->render('AVListeVoeuBundle:Residence:list.html.twig',array(
 			'liste_residence'=>$liste_residence));
 	}
