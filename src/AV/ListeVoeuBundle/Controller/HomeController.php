@@ -8,8 +8,9 @@ use Symfony\Component\HttpFoundation\Request;
 
 class HomeController extends Controller
 {
-	public function indexAction()
+	public function indexAction(Request $request)
 	{
+		$em = $this->getDoctrine()->getManager();
 		return $this->render('AVListeVoeuBundle:Home:homepage.html.twig');
 	}
 }

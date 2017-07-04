@@ -37,3 +37,6 @@ fos_user_security_check:
 
 fos_user_security_logout:
     path: /logout
+test:
+    path: /test
+    defaults: {_controller:AVListeVoeuBundle:Agent:test}

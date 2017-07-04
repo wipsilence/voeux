@@ -23,11 +23,13 @@ class AgentType extends AbstractType
         $builder
 			->add('nom')
 			->add('prenom')
-			->add('grade', ChoiceType::class, array(
-				'choices' => array(
-				'Inspecteur' => 'Inspecteur',	
-				'Contrôleur' => 'Contrôleur',
-				)))
+			->add('grade')
+			// POur avoir le champs avec un menu déroulant :
+			//~ ->add('grade', ChoiceType::class, array(
+				//~ 'choices' => array(
+				//~ 'Inspecteur' => 'Inspecteur',	
+				//~ 'Contrôleur' => 'Contrôleur',
+				//~ )))
 			->add('domicile', TextType::class, array(
 				'mapped' => false,
 				))

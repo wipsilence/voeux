@@ -95,6 +95,11 @@ class AgentController extends Controller
 		));
 	}
 
-
+	public function testAction(){
+		$em = $this->getDoctrine()->getManager();
+		$touteslesvilles = $em -> getRepository('AVListeVoeuBundle:Ville')->findAll();
+		return $this->render('AVListeVoeuBundle:Agent:test.html.twig', array('touteslesvilles'=>$touteslesvilles));	
+	}
+	
 }
 
