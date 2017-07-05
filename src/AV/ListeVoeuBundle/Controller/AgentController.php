@@ -59,6 +59,7 @@ class AgentController extends Controller
 
 		return $this->render('AVListeVoeuBundle:Agent:add.html.twig', array(
 			'formulaire' => $formulaire->createView(),
+			'domicile'=> $formulaire['domicile'],
 			'touteslesvilles'=>$touteslesvilles,
 		));
 
@@ -103,6 +104,7 @@ class AgentController extends Controller
 		$touteslesvilles = $em -> getRepository('AVListeVoeuBundle:Ville')->findAll();
 		return $this->render('AVListeVoeuBundle:Agent:add.html.twig', array(
 			'formulaire' => $formulaire->createView(),
+			'domicile' => $nomville,
 			'touteslesvilles'=>$touteslesvilles,
 		));
 	}
