@@ -8,14 +8,26 @@ use AV\ListeVoeuBundle\Form\AgentType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+
 class AgentController extends Controller
 {
+
+  /**
+   * @Security("has_role('ROLE_ADMIN')")
+   */
 	public function indexAction()
 	{
-		$em = $this->getDoctrine()->getManager();
-		$liste_agent = $em->getRepository('AVListeVoeuBundle:Agent')->findAll();
-		return $this->render('AVListeVoeuBundle:Agent:index.html.twig',array(
-			'liste_agent'=>$liste_agent));
+		if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+			throw new AccessDeniedException('Accès limité aux administrateurs.');
+		} else {
+			$em = $this->getDoctrine()->getManager();
+			$liste_agent = $em->getRepository('AVListeVoeuBundle:Agent')->findAll();
+			return $this->render('AVListeVoeuBundle:Agent:index.html.twig',array(
+				'liste_agent'=>$liste_agent));
+		}
 	}
 
 	public function addAction (Request $request)
@@ -95,6 +107,11 @@ class AgentController extends Controller
 		));
 	}
 
-
+	public function testAction(){
+		$em = $this->getDoctrine()->getManager();
+		$touteslesvilles = $em -> getRepository('AVListeVoeuBundle:Ville')->findAll();
+		return $this->render('AVListeVoeuBundle:Agent:test.html.twig', array('touteslesvilles'=>$touteslesvilles));	
+	}
+	
 }
 

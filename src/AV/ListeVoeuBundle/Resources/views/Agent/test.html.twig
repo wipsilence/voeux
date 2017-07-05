@@ -1,0 +1,81 @@
+{%extends "::base.html.twig" %}
+{% block body %}
+		<script>
+			var liste = [];
+			{% for ville in touteslesvilles %}
+				liste.push('{{ ville.nom }}');
+			{% endfor %}
+			$(document).ready(function(){
+				$('#test').autocomplete({
+					source : function(request,response){
+						var re = $.ui.autocomplete.escapeRegex(request.term);
+						var matcher = new RegExp( "^" + re, "i" );
+						var a = $.grep( liste, function(item,index){
+							return matcher.test(item);
+							});
+						response(a);
+					},
+					minLength : 3,
+					position: { my: "bottom", at: "bottom"},	
+				});
+			});
+		</script>
+		<div class="ui-widget">
+			<label for="test">Ville</label>
+			<input type="text" id="test" required="required" maxlength="255"/>
+		</div>
+		<style type="text/css">
+#test{
+	position:relative;
+}
+.ui-autocomplete {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  display: none;
+  min-width: 160px;
+  _width: 160px;
+  padding: 4px 0;
+  margin: 2px 0 0 0;
+  list-style: none;
+  background-color: #ffffff;
+  border-color: #ccc;
+  border-color: rgba(0, 0, 0, 0.2);
+  border-style: solid;
+  border-width: 1px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+  *border-right-width: 2px;
+  *border-bottom-width: 2px;
+
+  .ui-menu-item > a.ui-corner-all {
+    display: block;
+    padding: 3px 15px;
+    clear: both;
+    font-weight: normal;
+    line-height: 18px;
+    color: #555555;
+    white-space: nowrap;
+  }
+}
+.ui-widget-content .ui-state-focus {
+	color: #ffffff;
+    text-decoration: none;
+    background-color: #0088cc;
+    border-radius: 0px;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    background-image: none;
+}
+
+		</style>
+{% endblock %}
+	
