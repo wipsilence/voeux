@@ -1,0 +1,88 @@
+{%extends "::base.html.twig" %}
+
+
+{% block script %}
+				var liste_villes = [];
+				{% for ville in touteslesvilles %}
+					liste_villes.push('{{ ville.nom }}');
+				{% endfor %}
+				$(document).ready(function(){
+					$('#av_listevoeubundle_residence_ville').autocomplete({
+						source : function(request,response){
+							var re = $.ui.autocomplete.escapeRegex(request.term);
+							var matcher = new RegExp( "^" + re, "i" );
+							var a = $.grep( liste_villes, function(item,index){
+								return matcher.test(item);
+								});
+							response(a);
+						},
+						minLength : 3,	
+					});
+				});
+				
+				var liste_directions = [];
+				{% for direction in touteslesdirections %}
+					liste_directions.push('{{ direction.nom }}');
+				{% endfor %}
+				$(document).ready(function(){
+					$('#av_listevoeubundle_residence_direction').autocomplete({
+						source : function(request,response){
+							var re = $.ui.autocomplete.escapeRegex(request.term);
+							var matcher = new RegExp( "^" + re, "i" );
+							var a = $.grep( liste_directions, function(item,index){
+								return matcher.test(item);
+								});
+							response(a);
+						},
+						minLength : 3,	
+					});
+				});
+{% endblock %}
+
+{% block body %}
+<div class = "formulaire">
+	<h3>Formulaire d'édition d'une résidence</h3>
+	<div class="well">
+	
+		{{ form_start(formulaire, {'attr': {'class': 'form-horizontal'}}) }}
+		{{ form_errors(formulaire) }}
+	
+		<form class="form-horizontal" method="post">
+			<div class="form-group">
+				<div class="ui-widget">
+					{{ form_label(formulaire.nom, "Nom",{'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+					{{ form_errors(formulaire.nom) }}
+					<div class="col-sm-9">
+						{{ form_widget(formulaire.nom,{'attr': {'class': 'form-control'}}) }}
+					</div>
+				</div>
+				<div class="ui-widget">
+					{{ form_label(formulaire.ville, "Ville",{'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+					{{ form_errors(formulaire.ville) }}
+					<div class="col-sm-9">
+						{{ form_widget(formulaire.ville,{'attr': {'class': 'form-control'}}) }}
+					</div>
+				</div>
+				<div class="ui-widget">
+					{{ form_label(formulaire.direction, "Direction",{'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+					{{ form_errors(formulaire.direction) }}
+					<div class="col-sm-9">
+						{{ form_widget(formulaire.direction,{'attr': {'class': 'form-control'}}) }}
+					</div>
+				</div>
+			</div>
+			{{ form_widget(formulaire.submit, {'attr': {'class': 'btn btn-primary'}}) }}
+			{{ form_rest(formulaire) }}
+		{{ form_end(formulaire) }}
+	</div>
+</div>
+<style type="text/css">
+	.ui-autocomplete {
+		float:left;
+	}}
+	input#av_listevoeubundle_residence_direction,
+	input#av_listevoeubundle_residence_ville {
+		background: grey;
+	}
+</style>
+{% endblock %}

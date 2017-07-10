@@ -45,3 +45,19 @@ fos_user_security_logout:
 test:
     path: /test
     defaults: {_controller:AVListeVoeuBundle:Agent:test}
+add_residence:
+    path:     /residence/add
+    defaults: {_controller: AVListeVoeuBundle:Residence:add}
+del_residence:
+    path:     /residence/del/{residence_id}
+    defaults: {_controller: AVListeVoeuBundle:Residence:del}
+    requirements:
+        residence_id: \d+
+edit_residence:
+    path:     /residence/edit/{residence_id}
+    defaults: {_controller: AVListeVoeuBundle:Residence:edit}
+    requirements:
+        residence_id: \d+
+list_residence:
+    path:     /residence
+    defaults: {_controller: AVListeVoeuBundle:Residence:list}
