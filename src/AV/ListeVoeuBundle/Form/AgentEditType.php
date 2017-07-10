@@ -43,6 +43,16 @@ class AgentEditType extends AbstractType
 					'choice_label' => 'nom',
 					)
 				)
+			->add('roles', ChoiceType::class,  array( 
+					'label' => 'Rôles',
+					'choices' => array(
+						'agent' => 'ROLE_USER', 
+						'administrateur' => 'ROLE_ADMIN'
+						),
+					'multiple'  => true,
+					'expanded' => true,
+					)
+				)
 			->add('submit',SubmitType::class);
 		
 

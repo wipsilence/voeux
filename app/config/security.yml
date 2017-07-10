@@ -22,9 +22,9 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
-        main_index:
-            pattern: ^/$
-            anonymous: true
+        #~ main_index:
+            #~ pattern: ^/$
+            #~ anonymous: true
         main_login:
             pattern: ^/login$
             anonymous: true
