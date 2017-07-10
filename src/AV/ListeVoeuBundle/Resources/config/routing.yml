@@ -9,6 +9,11 @@ edit_agent:
     defaults: {_controller: AVListeVoeuBundle:Agent:edit}
     requirements:
         agent_id: \d+
+sup_agent:
+    path:     /agent/sup/{agent_id}
+    defaults: {_controller: AVListeVoeuBundle:Agent:sup}
+    requirements:
+        agent_id: \d+ 
 av_liste_agent_view:
     path:     /agent
     defaults: {_controller: AVListeVoeuBundle:Agent:index}

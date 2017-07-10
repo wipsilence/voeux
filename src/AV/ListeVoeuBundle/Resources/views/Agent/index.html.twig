@@ -18,12 +18,31 @@
 			</script>
 			<table class="table table-striped">
 			<thead>
-				<tr><th>Nom</th><th>Prénom</th><th>Grade</th><th>Domicile</th></tr>
+				<tr><th>Nom</th><th>Prénom</th><th>Grade</th><th>Domicile</th><th>Actions</th></tr>
 			</thead>
 			<tbody>
 			{% for agent in liste_agent %}
-				<tr class='clickable-row' data-href='agent/edit/{{ agent.id }}'><td>{{ agent.nom }}</td><td>{{ agent.prenom }}</td><td>{{ agent.grade }}</td><td>{{ agent.domicile.nom }}</td></tr>
+				<tr class='clickable-row' data-href='agent/edit/{{ agent.id }}'>
+					<td>
+						<a href="agent/edit/{{ agent.id }}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
+						<a href="{{ path('sup_agent', {'agent_id':agent.id}) }}"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+					</td>
+					<td>{{ agent.nom }}</td>
+					<td>{{ agent.prenom }}</td>
+					<td>{{ agent.grade }}</td>
+					<td>{{ agent.domicile.nom }}</td>
+					
+				</tr>
 			{% endfor %}
+			<tr>
+				<td>
+					<a href="{{ path('add_agent') }}"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
+				</td>
+				<td>< Créer un nouvel agent ></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
 			</tbody>
 			</table>
 		</div>

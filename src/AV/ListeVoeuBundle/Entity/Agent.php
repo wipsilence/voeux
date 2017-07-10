@@ -54,6 +54,11 @@ class Agent extends BaseUser
      */
     private $listes;
 
+	/**
+     * @ORM\ManyToMany(targetEntity="AV\ListeVoeuBundle\Entity\Qualification")
+     */
+    private $qualification;
+
     /**
      * Get id
      *
@@ -169,6 +174,7 @@ class Agent extends BaseUser
         parent::__construct();
         $this->listes = new \Doctrine\Common\Collections\ArrayCollection();
         $this->enabled = 't';
+        $this->qualification = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -203,5 +209,39 @@ class Agent extends BaseUser
     public function getListes()
     {
         return $this->listes;
+    }
+
+    /**
+     * Add qualification
+     *
+     * @param \AV\ListeVoeuBundle\Entity\Qualification $qualification
+     *
+     * @return Agent
+     */
+    public function addQualification(\AV\ListeVoeuBundle\Entity\Qualification $qualification)
+    {
+        $this->qualification[] = $qualification;
+
+        return $this;
+    }
+
+    /**
+     * Remove qualification
+     *
+     * @param \AV\ListeVoeuBundle\Entity\Qualification $qualification
+     */
+    public function removeQualification(\AV\ListeVoeuBundle\Entity\Qualification $qualification)
+    {
+        $this->qualification->removeElement($qualification);
+    }
+
+    /**
+     * Get qualification
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getQualification()
+    {
+        return $this->qualification;
     }
 }

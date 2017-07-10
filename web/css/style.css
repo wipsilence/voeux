@@ -35,7 +35,7 @@
 /* -----------Logo---------- */
 #logo {
 	float: left;
-	width: 30%;
+	width: 20%;
 	height: 100%;
 }
 
@@ -52,7 +52,7 @@
 /* -----------Menu---------- */
 #menu {
 	float: left;
-	width:70%;
+	width:80%;
 	height:100%;
 	margin: 0;
 }
@@ -131,28 +131,60 @@
 	opacity: 0.95;
     filter: alpha(opacity=95);
 }
+#menu ul li.liimg.agents{
+	background:url(../images/agents.png);
+}
+#menu ul li.liimg.agents:hover,#menu ul li.liimg.agents.encours{
+	height:71px;
+	background-position:bottom left;
+	padding-top:6px;
+}
+#menu ul li.liimg.voeux.encours {
+	opacity: 0.95;
+    filter: alpha(opacity=95);
+}
 #menu ul .encours.liimg a{
 	color:#bbdefb;
 }
 #menu ul li.connexion{
-	display:inline;
+	display:inline-block;
 	color:white;
-	font-size:18px;
+	font-size:12px;
 	font-family: Lato-Regular;
-	text-align:left;
 	margin-left: 10px;
 	text-transform: capitalize;
+	padding: 0;
+	margin:0;
+	width:25%;
+}
+#menu ul li.connexion p{
+	margin-bottom:50px;
+	width:45%;
+	height:20px;
+	padding:0;
+	margin:3px 0 0 0;
+	float:left;
+	text-align: right;
 }
 
-#menu ul li.connexion h2{
-	color:white;
-	font-size:18px;
-	font-family: Lato-Bold;
-	display: inline;
-}
 #menu ul li.connexion a{
-	font-size:16px;
-	padding: 0 0 0 0; 
+	text-align: left;
+	float:left;
+	display:block;
+	height:20px;
+	width:50%;
+	color:white;
+	font-size:14px;
+	font-family: Lato-Bold;
+	padding:0;
+	margin:0 0 2px 2px;
+}
+#menu ul li.connexion a#logout{
+	display: block;
+	padding:0;
+	margin:3px 0 0 2px ;
+	text-align: left;
+	font-family: Lato-Regular;
 }
 #menu ul li.connexion a:hover{
 	text-decoration: underline blue;
@@ -201,6 +233,9 @@
 	margin: 0 auto;
 	padding:0;
 }
+.clickable-row:hover {
+	cursor:pointer;
+}
 /*---------Formulaire--------*/
 .formulaire {
 	width: 100%;
@@ -214,6 +249,16 @@
 .formulaire .btn {
 	display: block;
 	margin: 10px auto 10px auto;
+}
+html body.mien div#contener div.formulaire div.well form.form-horizontal div.form-group div.col-sm-8 div#av_listevoeubundle_agent_qualification{
+	background:white;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+}
+.form-horizontal .checkbox {
+	display: inline-block;
+	width:33%; 
+	padding: 0 0 20px 4px;
 }
 
 /*---------Log--------*/

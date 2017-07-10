@@ -13,7 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use FOS\UserBundle\Util\LegacyFormHelper;
 
-class AgentType extends AbstractType
+class AgentAddType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -23,19 +23,15 @@ class AgentType extends AbstractType
         $builder
 			->add('nom')
 			->add('prenom')
-			->add('grade')
-			// POur avoir le champs avec un menu déroulant :
-			//~ ->add('grade', ChoiceType::class, array(
-				//~ 'choices' => array(
-				//~ 'Inspecteur' => 'Inspecteur',	
-				//~ 'Contrôleur' => 'Contrôleur',
-				//~ )))
+			//Pour avoir le champs avec un menu déroulant :
+			->add('grade', ChoiceType::class, array(
+				'choices' => array(
+				'Inspecteur' => 'Inspecteur',	
+				'Contrôleur' => 'Contrôleur',
+				)))
 			->add('domicile', TextType::class, array(
 				'mapped' => false,
 				))
-			//~ ->add('username',TextType::class)
-			//~ ->add('email',EmailType::class)
-			//~ ->add('password',PasswordType::class)
 			->add('email', LegacyFormHelper::getType('Symfony\Component\Form\Extension\Core\Type\EmailType'), array(
 				'label' => 'form.email', 
 				'translation_domain' => 'FOSUserBundle',
@@ -52,6 +48,23 @@ class AgentType extends AbstractType
                 'invalid_message' => 'fos_user.password.mismatch',
                 'csrf_token_id' => 'registration'
             ))
+            ->add('qualification',EntityType::class, array(
+					'class' => 'AV\ListeVoeuBundle\Entity\Qualification',
+					'multiple' => 'true',
+					'expanded' => 'true',
+					'choice_label' => 'nom',
+					)
+				)
+			->add('roles', ChoiceType::class,  array( 
+					'label' => 'Rôles',
+					'choices' => array(
+						'agent' => 'ROLE_USER', 
+						'administrateur' => 'ROLE_ADMIN'
+						),
+					'multiple'  => true,
+					'expanded' => true,
+					)
+				)
 			->add('submit',SubmitType::class);
 		
 

@@ -22,7 +22,7 @@
 {% endblock %}
 {% block body %}
 <div class="formulaire">
-	<h3 id="test" >Formulaire de création d'un agent</h3>
+	<h3 >Fiche de l'agent <b>{{ agent.prenom }}</b> <b>{{ agent.nom }}</b> </h3>
 	<div class="well">
 		{{ form_start(formulaire, {'attr': {'class': 'form-horizontal'}}) }}
 		{# Les erreurs générales du formulaire. #}
@@ -36,7 +36,7 @@
 			{{ form_errors(formulaire.nom) }}
 			<div class="col-sm-5">
 				{# Génération de l'input. #}
-				{{ form_widget(formulaire.nom, {'attr': {'class': 'form-control'}}) }}
+				{{ form_widget(formulaire.nom, {'attr': {'class': 'form-control','readonly' : 'readonly'}}) }}
 			</div>
 		</div>
 						
@@ -44,7 +44,7 @@
 			{{ form_label(formulaire.prenom, "Prenom", {'label_attr': {'class': 'col-sm-4 control-label'}}) }}
 			{{ form_errors(formulaire.prenom) }}
 			<div class="col-sm-5">
-				{{ form_widget(formulaire.prenom, {'attr': {'class': 'form-control'}}) }}
+				{{ form_widget(formulaire.prenom, {'attr': {'class': 'form-control','readonly' : 'readonly'}}) }}
 			</div>
 		</div>
 					
@@ -52,7 +52,7 @@
 			{{ form_label(formulaire.grade, "Grade", {'label_attr': {'class': 'col-sm-4 control-label'}}) }}
 			{{ form_errors(formulaire.grade) }}
 			<div class="col-sm-5">
-				{{ form_widget(formulaire.grade, {'attr': {'class': 'form-control'}}) }}
+				{{ form_widget(formulaire.grade, {'attr': {'class': 'form-control','readonly' : 'readonly'}}) }}
 			</div>
 		</div>
 					
@@ -74,7 +74,7 @@
 			</div>
 		</div>
 		
-		<div class="form-group">
+		<div class="form-group" hidden >
 			{{ form_label(formulaire.username, "Pseudo de connexion", {'label_attr': {'class': 'col-sm-4 control-label'}}) }}
 			{{ form_errors(formulaire.username) }}
 			<div class="col-sm-5">
@@ -83,35 +83,28 @@
 		</div>
 		
 		<div class="form-group">
-			{{ form_label(formulaire.qualification, "Qualification", {'label_attr': {'class': 'col-sm-4 control-label'}}) }}
-			{{ form_errors(formulaire.qualification) }}
+			{{ form_label(formulaire.qualification, "Qualification", {'label_attr': {'class': 'col-sm-4 control-label'}}) }}{{ form_errors(formulaire.qualification) }}
 			<div class="col-sm-8">
 				{{ form_widget(formulaire.qualification) }}
 			</div>
 		</div>
-		<div class="form-group">
-			{{ form_label(formulaire.password.first,"Mot de passe",{'label_attr': {'class': 'col-sm-4 control-label'}}) }}
-			{{ form_errors(formulaire.password.first) }}
-			<div class="col-sm-5">
-				{{ form_widget(formulaire.password.first) }}
-			</div>
-		</div>
-		<div class="form-group">
-			{{ form_label(formulaire.password.second,"Confirmation",{'label_attr': {'class': 'col-sm-4 control-label'}}) }}
-			{{ form_errors(formulaire.password.second) }}
-			<div class="col-sm-5">
-				{{ form_widget(formulaire.password.second) }}
-			</div>
-		</div>
-		<div class="form-group">
-			{{ form_label(formulaire.roles,"Rôle(s)",{'label_attr': {'class': 'col-sm-4 control-label'}}) }}
-			{{ form_errors(formulaire.roles) }}
-			<div class="col-sm-5">
-				{{ form_widget(formulaire.roles) }}
-			</div>
-		</div>
+		{% if app.user %}
+			{% for role in app.user.roles %}
+				{% if role in "ROLE_ADMIN" %}
+					<div class="form-group">
+						{{ form_label(formulaire.roles,"Rôle(s)",{'label_attr': {'class': 'col-sm-4 control-label'}}) }}
+						{{ form_errors(formulaire.roles) }}
+						<div class="col-sm-5">
+							{{ form_widget(formulaire.roles) }}
+						</div>
+					</div>
+				{% endif %}
+			{% endfor %}
+		{% endif %}
+	
 		{# Pour le bouton, pas de label ni d'erreur, on affiche juste le widget #}
 		{{ form_widget(formulaire.submit, {'attr': {'class': 'btn btn-primary'}}) }}
+		{% if app.user.id == agent.id %}<a href="/profile/change-password">Pour changer de mot de passe cliquer ici</a>{% endif %}
 		<div hidden>
 		{{ form_rest(formulaire) }}
 		</div>
