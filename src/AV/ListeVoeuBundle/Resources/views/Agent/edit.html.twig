@@ -88,7 +88,19 @@
 				{{ form_widget(formulaire.qualification) }}
 			</div>
 		</div>
-		
+		{% if app.user %}
+			{% for role in app.user.roles %}
+				{% if role in "ROLE_ADMIN" %}
+					<div class="form-group">
+						{{ form_label(formulaire.roles,"Rôle(s)",{'label_attr': {'class': 'col-sm-4 control-label'}}) }}
+						{{ form_errors(formulaire.roles) }}
+						<div class="col-sm-5">
+							{{ form_widget(formulaire.roles) }}
+						</div>
+					</div>
+				{% endif %}
+			{% endfor %}
+		{% endif %}
 	
 		{# Pour le bouton, pas de label ni d'erreur, on affiche juste le widget #}
 		{{ form_widget(formulaire.submit, {'attr': {'class': 'btn btn-primary'}}) }}

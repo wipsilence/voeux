@@ -35,7 +35,7 @@
 /* -----------Logo---------- */
 #logo {
 	float: left;
-	width: 30%;
+	width: 20%;
 	height: 100%;
 }
 
@@ -52,7 +52,7 @@
 /* -----------Menu---------- */
 #menu {
 	float: left;
-	width:70%;
+	width:80%;
 	height:100%;
 	margin: 0;
 }
