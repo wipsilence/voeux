@@ -30,7 +30,7 @@ class ListeController extends Controller
         return round($d/1000); # Distance arrondie en kilomètre
     }
 
-    public function indexAction($list_id=null)
+    public function indexAction(Request $request, $list_id=null, $donneesForm=null)
 	{
         $em = $this->getDoctrine()->getManager();
         # Récupération de l'agent
@@ -38,7 +38,6 @@ class ListeController extends Controller
 
         if($list_id == null) {
             # Récupération des listes existantes de l'agent
-            # $listes = $em->getRepository('AVListeVoeuBundle:Liste')->findAll();
             $listes = $agent->getListes();
             return $this->render('AVListeVoeuBundle:Liste:choix.html.twig',array(
                 'listes'=>$listes,
@@ -64,7 +63,8 @@ class ListeController extends Controller
             return $this->render('AVListeVoeuBundle:Liste:index.html.twig',array(
                 'liste'=>$liste,
                 'domicile'=>$domicile,
-                'villes'=>$villes
+                'villes'=>$villes,
+                'donneesForm'=>$donneesForm,
                 )
             );
         }
@@ -102,11 +102,14 @@ class ListeController extends Controller
 
 		if ($request->isMethod('POST') && $formulaire->handleRequest($request)->isValid()) {
             # Formulaire renseigné
+            $donneesForm = $formulaire->getData();
             $liste->setAgent($agent);
             $em->persist($liste);
             $em->flush();
             # On affiche la liste des voeux
-			return $this->redirectToRoute('liste_agent', array('list_id'=>$liste->getId()));
+			return $this->redirectToRoute('liste_agent', array('list_id'=>$liste->getId(),
+                                                               'donneesForm'=>$donneesForm,
+                                                              ));
         } else {
             # Récupération de la liste des postes
             $postes = $em->getRepository('AVListeVoeuBundle:Poste')->findAll();
