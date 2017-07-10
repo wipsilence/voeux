@@ -108,10 +108,13 @@ class ListeController extends Controller
             # On affiche la liste des voeux
 			return $this->redirectToRoute('liste_agent', array('list_id'=>$liste->getId()));
         } else {
+            # Récupération de la liste des postes
+            $postes = $em->getRepository('AVListeVoeuBundle:Poste')->findAll();
             # Appel du formulaire pour saisie
             return $this->render('AVListeVoeuBundle:Liste:add.html.twig', array(
-			'formulaire' => $formulaire->createView(),
-            'agent' => $agent,
+                'formulaire' => $formulaire->createView(),
+                'agent' => $agent,
+                'postes' => $postes,
 		));
         }
     }
