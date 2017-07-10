@@ -6,7 +6,7 @@
 		}
 	</style>
 	<div class="tableau">
-		<h3>Liste de tous les agents</h3>
+		<h3>Liste de toutes les résidences</h3>
 
 		<div>
 			<script>
@@ -18,11 +18,11 @@
 			</script>
 			<table class="table table-striped">
 			<thead>
-				<tr><th>Nom</th><th>Prénom</th><th>Grade</th><th>Domicile</th></tr>
+				<tr><th>Nom</th></tr>
 			</thead>
 			<tbody>
-			{% for agent in liste_agent %}
-				<tr class='clickable-row' data-href='agent/edit/{{ agent.id }}'><td>{{ agent.nom }}</td><td>{{ agent.prenom }}</td><td>{{ agent.grade }}</td><td>{{ agent.domicile.nom }}</td></tr>
+			{% for residence in liste_residence %}
+				<tr class='clickable-row' data-href='residence/edit/{{ residence.id }}'><td>{{ residence.nom }}</td></tr>
 			{% endfor %}
 			</tbody>
 			</table>

@@ -1,81 +1,56 @@
-{%extends "::base.html.twig" %}
-{% block body %}
-		<script>
-			var liste = [];
-			{% for ville in touteslesvilles %}
-				liste.push('{{ ville.nom }}');
-			{% endfor %}
-			$(document).ready(function(){
-				$('#test').autocomplete({
-					source : function(request,response){
-						var re = $.ui.autocomplete.escapeRegex(request.term);
-						var matcher = new RegExp( "^" + re, "i" );
-						var a = $.grep( liste, function(item,index){
-							return matcher.test(item);
-							});
-						response(a);
-					},
-					minLength : 3,
-					position: { my: "bottom", at: "bottom"},	
-				});
-			});
-		</script>
-		<div class="ui-widget">
-			<label for="test">Ville</label>
-			<input type="text" id="test" required="required" maxlength="255"/>
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>AgoraVoeux II</title>
+	<link rel="stylesheet" href="{{ asset('css/style.css') }}" type="text/css" />
+	<link rel="icon" type="image/x-icon" href="{{ asset('favicon2.ico') }}" />
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>		
+	<script src="{{ asset('js/auto.js') }}"></script>
+</head>
+<body class="mien">
+	<div id="top">
+		<div id="header">
+			<div id="logo">
+				<h1>AgoraVoeux II</h1>
+			</div>
+			<div id="menu">
+				<ul>
+					<li class="{% if app.request.attributes.get('_route') == 'accueil' %}encours  {% endif %}liimg accueil" ><a href="/">Accueil</a></li>
+					<li class="cache {% if app.request.attributes.get('_route') == 'av_liste_agent_view' %}encours  {% endif %}liimg agent"><a href="/agent">Agent</a></li>
+					<li class="{% if app.request.attributes.get('_route') in ['liste_choix','liste_agent'] %}encours  {% endif %}liimg voeux"><a href="/liste">Voeux</a></li>
+					{% if app.user %} <li class="connexion" >connecté : <h2>{{ app.user }}</h2><a href="/logout">Logout</a></li> {% endif %}
+				</ul> 
+			</div>
 		</div>
-		<style type="text/css">
-#test{
-	position:relative;
-}
-.ui-autocomplete {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1000;
-  display: none;
-  min-width: 160px;
-  _width: 160px;
-  padding: 4px 0;
-  margin: 2px 0 0 0;
-  list-style: none;
-  background-color: #ffffff;
-  border-color: #ccc;
-  border-color: rgba(0, 0, 0, 0.2);
-  border-style: solid;
-  border-width: 1px;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
-  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-  -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-  -webkit-background-clip: padding-box;
-  -moz-background-clip: padding;
-  background-clip: padding-box;
-  *border-right-width: 2px;
-  *border-bottom-width: 2px;
+	</div>
+	{% for flashMessage in app.session.flashbag.all() %}
+		<div class="flash-message alert alert-info" role="alert">
+			{% for message in flashMessage %}
+				{{ message }}
+			{% endfor %}
+		</div>
+		{% endfor %}
+		
+	<div id="contener">
+		<div class="formulaire">
+		<h3 id="test" >Formulaire d'édition d'un agent</h3>
+			<div class="well">
+				<div class="ui-widget">
+					<label for="tags">Tags: </label>
+					<input id="tags">
+				</div>
+			</div>
+		</div>
+	</div>	
+	<div id="footer">
+	</div>
+</body>
+</html>
 
-  .ui-menu-item > a.ui-corner-all {
-    display: block;
-    padding: 3px 15px;
-    clear: both;
-    font-weight: normal;
-    line-height: 18px;
-    color: #555555;
-    white-space: nowrap;
-  }
-}
-.ui-widget-content .ui-state-focus {
-	color: #ffffff;
-    text-decoration: none;
-    background-color: #0088cc;
-    border-radius: 0px;
-    -webkit-border-radius: 0px;
-    -moz-border-radius: 0px;
-    background-image: none;
-}
-
-		</style>
-{% endblock %}
-	
