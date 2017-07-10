@@ -1,0 +1,103 @@
+{%extends "::base.html.twig" %}
+{% block stylesheets %}
+	<link rel="stylesheet" type="text/css" href="css/ui-lightness/jquery-ui-1.8.custom.css">
+	<link rel="stylesheet" type="text/css" href="css/autocomplete.css">
+{% endblock %}
+{% block script %}
+	$(function() {
+	var listevilles = [];
+	{% for ville in touteslesvilles %}
+		listevilles.push('{{ ville.nom }}');
+	{% endfor %}
+	$( "#av_listevoeubundle_agent_domicile" ).autocomplete({
+		source: function( request, response ) {
+			var matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex( request.term ), "i" );
+			response( $.grep( listevilles, function( item ){
+				return matcher.test( item );
+				}) );
+			},
+			minLength : 3,
+		});
+	});
+{% endblock %}
+{% block body %}
+<div class="formulaire">
+	<h3 >Fiche de l'agent <b>{{ agent.prenom }}</b> <b>{{ agent.nom }}</b> </h3>
+	<div class="well">
+		{{ form_start(formulaire, {'attr': {'class': 'form-horizontal'}}) }}
+		{# Les erreurs générales du formulaire. #}
+		{{ form_errors(formulaire) }}
+						
+		{# Génération manuelle et éclatée : #}
+		<div class="form-group">
+			{# Génération du label. #}
+			{{ form_label(formulaire.nom, "Nom", {'label_attr': {'class': 'col-sm-4 control-label'}}) }}
+			{# Affichage des erreurs pour ce champ précis. #}
+			{{ form_errors(formulaire.nom) }}
+			<div class="col-sm-5">
+				{# Génération de l'input. #}
+				{{ form_widget(formulaire.nom, {'attr': {'class': 'form-control','readonly' : 'readonly'}}) }}
+			</div>
+		</div>
+						
+		<div class="form-group">
+			{{ form_label(formulaire.prenom, "Prenom", {'label_attr': {'class': 'col-sm-4 control-label'}}) }}
+			{{ form_errors(formulaire.prenom) }}
+			<div class="col-sm-5">
+				{{ form_widget(formulaire.prenom, {'attr': {'class': 'form-control','readonly' : 'readonly'}}) }}
+			</div>
+		</div>
+					
+		<div class="form-group">
+			{{ form_label(formulaire.grade, "Grade", {'label_attr': {'class': 'col-sm-4 control-label'}}) }}
+			{{ form_errors(formulaire.grade) }}
+			<div class="col-sm-5">
+				{{ form_widget(formulaire.grade, {'attr': {'class': 'form-control','readonly' : 'readonly'}}) }}
+			</div>
+		</div>
+					
+		<div class="form-group">
+			<div class="ui-widget">
+			{{ form_label(formulaire.domicile, "Ville de résidence", {'label_attr': {'class': 'col-sm-4 control-label'}}) }}
+			{{ form_errors(formulaire.domicile) }}
+				<div class="col-sm-5">
+					{{ form_widget(formulaire.domicile, {'attr': {'class': 'form-control'}}) }}
+				</div>
+			</div>
+		</div>
+		
+		<div class="form-group">
+			{{ form_label(formulaire.email, "Email", {'label_attr': {'class': 'col-sm-4 control-label'}}) }}
+			{{ form_errors(formulaire.email) }}
+			<div class="col-sm-5">
+				{{ form_widget(formulaire.email, {'attr': {'class': 'form-control'}}) }}
+			</div>
+		</div>
+		
+		<div class="form-group" hidden >
+			{{ form_label(formulaire.username, "Pseudo de connexion", {'label_attr': {'class': 'col-sm-4 control-label'}}) }}
+			{{ form_errors(formulaire.username) }}
+			<div class="col-sm-5">
+				{{ form_widget(formulaire.username, {'attr': {'class': 'form-control'}}) }}
+			</div>
+		</div>
+		
+		<div class="form-group">
+			{{ form_label(formulaire.qualification, "Qualification", {'label_attr': {'class': 'col-sm-4 control-label'}}) }}{{ form_errors(formulaire.qualification) }}
+			<div class="col-sm-8">
+				{{ form_widget(formulaire.qualification) }}
+			</div>
+		</div>
+		
+	
+		{# Pour le bouton, pas de label ni d'erreur, on affiche juste le widget #}
+		{{ form_widget(formulaire.submit, {'attr': {'class': 'btn btn-primary'}}) }}
+		{% if app.user.id == agent.id %}<a href="/profile/change-password">Pour changer de mot de passe cliquer ici</a>{% endif %}
+		<div hidden>
+		{{ form_rest(formulaire) }}
+		</div>
+		{# Fermeture de la balise <form> du formulaire HTML #}
+		{{ form_end(formulaire) }}
+	</div>
+</div>
+{% endblock %}
