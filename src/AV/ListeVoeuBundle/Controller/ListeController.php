@@ -113,11 +113,26 @@ class ListeController extends Controller
         } else {
             # Récupération de la liste des postes
             $postes = $em->getRepository('AVListeVoeuBundle:Poste')->findAll();
+            # Récupération du domicile de l'agent
+            $domicile = $agent->getDomicile();
+            # Récupération des résidences
+            $residences = $em->getRepository('AVListeVoeuBundle:Residence')->findAll();
+            # Récupération des villes associées aux résidences
+            $chVilles = '';
+            foreach ($residences as $res) {
+                $villes[$res->getVille()->getNom()] = $this->distance($domicile->getLattitude(),        $domicile->getLongitude(),
+                                                                      $res->getVille()->getLattitude(), $res->getVille()->getLongitude());
+            }
+            # Tri des villes
+            asort($villes);      
+            
             # Appel du formulaire pour saisie
             return $this->render('AVListeVoeuBundle:Liste:add.html.twig', array(
                 'formulaire' => $formulaire->createView(),
                 'agent' => $agent,
                 'postes' => $postes,
+                'domicile'=>$domicile,
+                'villes'=>$villes,
 		));
         }
     }
