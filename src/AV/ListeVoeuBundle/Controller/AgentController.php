@@ -4,7 +4,8 @@
 namespace AV\ListeVoeuBundle\Controller;
 
 use AV\ListeVoeuBundle\Entity\Agent;
-use AV\ListeVoeuBundle\Form\AgentType;
+use AV\ListeVoeuBundle\Form\AgentEditType;
+use AV\ListeVoeuBundle\Form\AgentAddType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -29,12 +30,12 @@ class AgentController extends Controller
 				'liste_agent'=>$liste_agent));
 		}
 	}
-
+    
 	public function addAction (Request $request)
 	{
 		$em = $this->getDoctrine()->getManager();
 		$agent = new Agent();
-		$formulaire = $this->get('form.factory')->create(AgentType::class, $agent);
+		$formulaire = $this->get('form.factory')->create(AgentAddType::class, $agent);
 
 		if ($request->isMethod('POST') && $formulaire->handleRequest($request)->isValid()) {
 
@@ -64,6 +65,7 @@ class AgentController extends Controller
 		));
 
 	}
+	
 	public function editAction(Request $request, $agent_id)
 	{
 		$em = $this->getDoctrine()->getManager();
@@ -75,7 +77,7 @@ class AgentController extends Controller
 		}
 		else{
 
-			$formulaire = $this->get('form.factory')->create(AgentType::class, $agent);
+			$formulaire = $this->get('form.factory')->create(AgentEditType::class, $agent);
 
 			$id_ville=$agent->getDomicile();
 			$ville= $em->getRepository('AVListeVoeuBundle:Ville')->find($id_ville);
@@ -102,18 +104,38 @@ class AgentController extends Controller
 		}
 
 		$touteslesvilles = $em -> getRepository('AVListeVoeuBundle:Ville')->findAll();
-		return $this->render('AVListeVoeuBundle:Agent:add.html.twig', array(
+		return $this->render('AVListeVoeuBundle:Agent:edit.html.twig', array(
 			'formulaire' => $formulaire->createView(),
 			'domicile' => $nomville,
 			'touteslesvilles'=>$touteslesvilles,
+			'agent' => $agent
 		));
 	}
-
+	
 	public function testAction(){
 		$em = $this->getDoctrine()->getManager();
 		$touteslesvilles = $em -> getRepository('AVListeVoeuBundle:Ville')->findAll();
 		return $this->render('AVListeVoeuBundle:Agent:test.html.twig', array('touteslesvilles'=>$touteslesvilles));	
 	}
+	public function supAction(Request $request, $agent_id)
+	{
+        $em = $this->getDoctrine()->getManager();
+        # Récupération de l'agent
+        $agent = $em->getRepository('AVListeVoeuBundle:Agent')->find($agent_id);
+        $nomAgent=$agent->getNom();
+        # récupération des listes liées à $agent
+        $listes = $agent->getListes();
+        foreach ($listes as $list) {
+                $em->remove($list);
+                $em->flush();
+		}
+		$em->remove($agent);
+        $em->flush();
+
+        $session = $this->get('session');
+        $session->getFlashBag()->add('info', 'Agent "'.$nomAgent.'" bien supprimé');
+        return $this->redirectToRoute('av_liste_agent_view');
+    }
 	
 }
 

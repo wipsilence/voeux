@@ -3,6 +3,7 @@
 namespace AV\ListeVoeuBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use FOS\UserBundle\Model\User as BaseUser;
 
 /**
  * Agent
@@ -10,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="agent")
  * @ORM\Entity(repositoryClass="AV\ListeVoeuBundle\Repository\AgentRepository")
  */
-class Agent
+class Agent extends BaseUser
 {
     /**
      * @var int
@@ -19,7 +20,8 @@ class Agent
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
+
 
     /**
      * @var string
@@ -51,6 +53,11 @@ class Agent
      * @ORM\OneToMany(targetEntity="AV\ListeVoeuBundle\Entity\Liste", mappedBy="agent")
      */
     private $listes;
+
+	/**
+     * @ORM\ManyToMany(targetEntity="AV\ListeVoeuBundle\Entity\Qualification")
+     */
+    private $qualification;
 
     /**
      * Get id
@@ -158,5 +165,82 @@ class Agent
     public function getDomicile()
     {
         return $this->domicile;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->listes = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->enabled = 't';
+    }
+
+    /**
+     * Add liste
+     *
+     * @param \AV\ListeVoeuBundle\Entity\Liste $liste
+     *
+     * @return Agent
+     */
+    public function addListe(\AV\ListeVoeuBundle\Entity\Liste $liste)
+    {
+        $this->listes[] = $liste;
+
+        return $this;
+    }
+
+    /**
+     * Remove liste
+     *
+     * @param \AV\ListeVoeuBundle\Entity\Liste $liste
+     */
+    public function removeListe(\AV\ListeVoeuBundle\Entity\Liste $liste)
+    {
+        $this->listes->removeElement($liste);
+    }
+
+    /**
+     * Get listes
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getListes()
+    {
+        return $this->listes;
+    }
+
+    /**
+     * Add qualification
+     *
+     * @param \AV\ListeVoeuBundle\Entity\Qualification $qualification
+     *
+     * @return Agent
+     */
+    public function addQualification(\AV\ListeVoeuBundle\Entity\Qualification $qualification)
+    {
+        $this->qualification[] = $qualification;
+
+        return $this;
+    }
+
+    /**
+     * Remove qualification
+     *
+     * @param \AV\ListeVoeuBundle\Entity\Qualification $qualification
+     */
+    public function removeQualification(\AV\ListeVoeuBundle\Entity\Qualification $qualification)
+    {
+        $this->qualification->removeElement($qualification);
+    }
+
+    /**
+     * Get qualification
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getQualification()
+    {
+        return $this->qualification;
     }
 }

@@ -26,17 +26,24 @@
 			</div>
 			<div id="menu">
 				<ul>
-					<li class="{% if app.request.attributes.get('_route') == 'accueil' %}encours  {% endif %}liimg accueil" ><a href="/">Accueil</a></li>
-					<li class="cache {% if app.request.attributes.get('_route') == 'av_liste_agent_view' %}encours  {% endif %}liimg agent"><a href="/agent">Agent</a></li>
+					<li class="{% if app.request.attributes.get('_route') == 'accueil' %}encours  {% endif %}liimg accueil" ><a href="{{path('accueil')}}">Accueil</a></li>
+					{% if app.user %}
+						{% for role in app.user.roles %}
+							{% if role in "ROLE_ADMIN" %}
+								<li class="{% if app.request.attributes.get('_route') in ['av_liste_agent_view','liste_add','edit_agent','add_agent'] %}encours  {% endif %}liimg agents"><a href="{{path('av_liste_agent_view')}}">Agents</a></li>
+							{% endif %}
+						{% endfor %}
+					{% endif %}
+					<li class="{% if app.request.attributes.get('_route_params') == "/agent/edit/{{ app.user.id }}" %}encours  {% endif %}liimg agent"><a href="{{ path('edit_agent',{'agent_id': app.user.id}) }}">Profil</a></li>	
 					<li class="{% if app.request.attributes.get('_route') in ['liste_choix','liste_agent'] %}encours  {% endif %}liimg voeux"><a href="/liste">Voeux</a></li>
-					{% if app.user %} <li class="connexion" >connecté : <h2>{{ app.user }}</h2><a href="/logout">Logout</a></li> {% endif %}
+					{% if app.user %} <li class="connexion" ><p>connecté :</p> <a href="/agent/edit/{{app.user.id}}">{{ app.user.username }}</a><a id="logout" href="/logout">Logout</a></li> {% endif %}
 				</ul> 
 			</div>
 		</div>
 		
 		
 	</div>
-	
+
     {% for flashMessage in app.session.flashbag.all() %}
 	<div class="flash-message alert alert-info" role="alert">
 		{% for message in flashMessage %}
@@ -44,9 +51,9 @@
 		{% endfor %}
 	</div>
     {% endfor %}
-	
+
 	<div id="contener">
-		
+		<h1>{{ dump(app.request.attributes) }}</h1>	
 	{% block body %}{% endblock %}
 	{% block javascripts %}{% endblock %}	
 	
