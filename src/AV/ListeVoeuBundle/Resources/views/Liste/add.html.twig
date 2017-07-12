@@ -1,4 +1,9 @@
 {%extends "::base.html.twig" %}
+{% block stylesheets %}
+	
+{% endblock %}
+//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css
+
 {% block body %}
 <div class = "formulaire">
     <h1>Nouvelle liste de {{ agent.nom }} {{ agent.prenom }}</h1>
@@ -43,6 +48,38 @@
 
         {{form_end(formulaire)}}
     </div>
+</div>
+<div class="tableau">
+	<table class="table table-condensed">
+    <thead>
+		<tr>
+			<th>Rang</th>
+			<th>Résidence</th>
+			<th>Poste</th>
+			<th>Distance</th>
+			<th>Temps de route</th>
+		</tr>
+    </thead>
+    <tbody>
+    {% set compteur = '0' %}
+	{% for ville,dist in villes %}
+		{% if not dist == '0' %}
+				{% for poste in postes %}
+					{% set compteur = compteur +1 %}
+					<tr>
+						<td> {{ compteur }} </td>
+						<td>{{ ville }}</td>
+						<td>{{ poste.nom }}</td>
+						<td>{{ dist }}</td>
+						<td>0</td>
+					</tr>
+				{% endfor %}
+		{% endif %}
+	{% endfor %}
+    </tbody>
+    </table>
+
+
 </div>
 {% endblock %}
 {% block javascripts %}

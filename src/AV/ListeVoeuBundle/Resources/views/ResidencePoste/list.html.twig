@@ -1,0 +1,45 @@
+{%extends "::base.html.twig" %}
+	{% block body %}
+	<style>
+		tr.clickable-row:hover {
+			color:blue; 
+		}
+	</style>
+	<div class="tableau">
+		<h3>Liste de toutes les relations résidences-postes</h3>
+
+		<div>
+			<script>
+				jQuery(document).ready(function($) {
+					$(".clickable-row").click(function() {
+						window.location = $(this).data("href");
+					});
+				});
+			</script>
+			<table class="table table-striped">
+			<thead>
+				<tr><th>Residence</th><th>Poste</th><th>Action</th><</tr>
+			</thead>
+			<tbody>
+			{% for residence_poste in liste_residence_poste %}
+				<tr class='clickable-row' data-href='residence_poste/edit/{{ residence_poste.residence.id }}/{{ residence_poste.poste.id }}'>
+					<td>{{ residence_poste.residence.nom }}</td>
+					<td>{{ residence_poste.poste.nom }}</td>
+					<td>
+						<a href="residence_poste/del/{{ residence_poste.residence.id }}/{{ residence_poste.poste.id }}"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+					</td>					
+				</tr>
+			{% endfor %}
+			
+			<tr>
+				<td>< Nouvelle relation ></td>
+				<td>
+					<a href="residence_poste/add"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
+				</td>
+			</tr>
+			
+			</tbody>
+			</table>
+		</div>
+	</div>
+{% endblock %}

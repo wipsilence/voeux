@@ -1,0 +1,80 @@
+{%extends "::base.html.twig" %}
+
+
+{% block script %}
+				var liste_residences = [];
+				{% for residence in toutes_residences %}
+					liste_residences.push('{{ residence.nom }}');
+				{% endfor %}
+				$(document).ready(function(){
+					$('#av_listevoeubundle_residence_poste_residence').autocomplete({
+						source : function(request,response){
+							var re = $.ui.autocomplete.escapeRegex(request.term);
+							var matcher = new RegExp( "^" + re, "i" );
+							var a = $.grep( liste_residences, function(item,index){
+								return matcher.test(item);
+								});
+							response(a);
+						},
+						minLength : 3,	
+					});
+				});
+				
+				var liste_postes = [];
+				{% for poste in tous_postes %}
+					liste_postes.push('{{ poste.nom }}');
+				{% endfor %}
+				$(document).ready(function(){
+					$('#av_listevoeubundle_residence_poste_poste').autocomplete({
+						source : function(request,response){
+							var re = $.ui.autocomplete.escapeRegex(request.term);
+							var matcher = new RegExp( "^" + re, "i" );
+							var a = $.grep( liste_postes, function(item,index){
+								return matcher.test(item);
+								});
+							response(a);
+						},
+						minLength : 3,	
+					});
+				});
+{% endblock %}
+
+{% block body %}
+<div class = "formulaire">
+	<h3>Formulaire d'édition d'une relation résidence-poste</h3>
+	<div class="well">
+	
+		{{ form_start(formulaire, {'attr': {'class': 'form-horizontal'}}) }}
+		{{ form_errors(formulaire) }}
+	
+			<div class="form-group">
+				<div class="ui-widget">
+					{{ form_label(formulaire.residence, "Residence",{'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+					{{ form_errors(formulaire.residence) }}
+					<div class="col-sm-9">
+						{{ form_widget(formulaire.residence,{'attr': {'class': 'form-control'}}) }}
+					</div>
+				</div>
+				<div class="ui-widget">
+					{{ form_label(formulaire.poste, "Poste",{'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+					{{ form_errors(formulaire.poste) }}
+					<div class="col-sm-9">
+						{{ form_widget(formulaire.poste,{'attr': {'class': 'form-control'}}) }}
+					</div>
+				</div>
+			</div>
+			{{ form_widget(formulaire.submit, {'attr': {'class': 'btn btn-primary'}}) }}
+			{{ form_rest(formulaire) }}
+		{{ form_end(formulaire) }}
+	</div>
+</div>
+<style type="text/css">
+	.ui-autocomplete {
+		float:left;
+	}}
+	input#av_listevoeubundle_residence_poste_residence,
+	input#av_listevoeubundle_residence_poste_poste {
+		background: grey;
+	}
+</style>
+{% endblock %}

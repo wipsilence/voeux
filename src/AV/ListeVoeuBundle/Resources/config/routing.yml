@@ -61,3 +61,15 @@ edit_residence:
 list_residence:
     path:     /residence
     defaults: {_controller: AVListeVoeuBundle:Residence:list}
+add_residence_poste:
+    path:     /residence_poste/add
+    defaults: {_controller: AVListeVoeuBundle:ResidencePoste:add}
+del_residence_poste:
+    path:     /residence_poste/del/{residence_id}/{poste_id}
+    defaults: {_controller: AVListeVoeuBundle:ResidencePoste:del}
+    requirements:
+        residence_id: \d+
+        poste_id: \d+
+list_residence_poste:
+    path:     /residence_poste
+    defaults: {_controller: AVListeVoeuBundle:ResidencePoste:list}
