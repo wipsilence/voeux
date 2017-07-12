@@ -8,7 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
@@ -28,6 +28,9 @@ class ListeAddType extends AbstractType
                              'mapped'=>false
                              )
                  )
+            ->add('choixPostes', HiddenType::class,
+                                 array('mapped'=>false)
+                                 )
 			->add('valider',SubmitType::class);
     }
 

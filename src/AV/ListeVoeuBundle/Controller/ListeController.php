@@ -8,6 +8,7 @@ use AV\ListeVoeuBundle\Entity\Liste;
 use AV\ListeVoeuBundle\Form\ListeAddType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 
 class ListeController extends Controller
@@ -30,7 +31,7 @@ class ListeController extends Controller
         return round($d/1000); # Distance arrondie en kilomètre
     }
 
-    public function indexAction(Request $request, $list_id=null, $donneesForm=null)
+    public function indexAction(Request $request, SessionInterface $session, $list_id=null)
 	{
         $em = $this->getDoctrine()->getManager();
         # Récupération de l'agent
@@ -64,7 +65,7 @@ class ListeController extends Controller
                 'liste'=>$liste,
                 'domicile'=>$domicile,
                 'villes'=>$villes,
-                'donneesForm'=>$donneesForm,
+                'donneesForm'=>($session->get('donneesForm')),
                 )
             );
         }
@@ -90,7 +91,7 @@ class ListeController extends Controller
         return $this->redirectToRoute('liste_choix');
     }
 
-    public function ajoutAction(Request $request)
+    public function ajoutAction(Request $request, SessionInterface $session)
 	{
 		$em = $this->getDoctrine()->getManager();
 
@@ -102,14 +103,12 @@ class ListeController extends Controller
 
 		if ($request->isMethod('POST') && $formulaire->handleRequest($request)->isValid()) {
             # Formulaire renseigné
-            $donneesForm = $formulaire->getData();
+            $session->set('donneesForm', $formulaire->getData());
             $liste->setAgent($agent);
             $em->persist($liste);
             $em->flush();
             # On affiche la liste des voeux
-			return $this->redirectToRoute('liste_agent', array('list_id'=>$liste->getId(),
-                                                               'donneesForm'=>$donneesForm,
-                                                              ));
+			return $this->redirectToRoute('liste_agent', array('list_id'=>$liste->getId()));
         } else {
             # Récupération de la liste des postes
             $postes = $em->getRepository('AVListeVoeuBundle:Poste')->findAll();
