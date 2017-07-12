@@ -38,7 +38,6 @@
                 </table>
             </div>
         </div>
-        <input type="hidden" id="choixPostes" value="" />
         {# Pour le bouton, pas de label ni d'erreur, on affiche juste le widget #}
         {{ form_widget(formulaire.valider, {'attr': {'class': 'btn btn-primary'}}) }}
 
@@ -62,7 +61,7 @@
                             result += $(this).find('.id').text()+',';
                         }
                     });
-                    $('#choixPostes').attr('value', result.substring(0,result.length-1));
+                    $('#av_listevoeubundle_liste_choixPostes').attr('value', result.substring(0,result.length-1));
                 }
             });
         });
