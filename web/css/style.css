@@ -80,11 +80,7 @@
 	font-family: Lato-Regular;
 	padding: 34px 0 0 0; 
 }
-/*
-#menu ul li.liimg.cache{
-	display:none;
-}
-*/
+
 #menu ul li.liimg:hover:not(.encours) a{
 	color:white;
 	font-family: 'Lato-Bold';
@@ -131,15 +127,15 @@
 	opacity: 0.95;
     filter: alpha(opacity=95);
 }
-#menu ul li.liimg.agents{
-	background:url(../images/agents.png);
+#menu ul li.liimg.conf{
+	background:url(../images/conf.png);
 }
-#menu ul li.liimg.agents:hover,#menu ul li.liimg.agents.encours{
+#menu ul li.liimg.conf:hover,#menu ul li.liimg.conf.encours{
 	height:71px;
 	background-position:bottom left;
 	padding-top:6px;
 }
-#menu ul li.liimg.voeux.encours {
+#menu ul li.liimg.conf.encours {
 	opacity: 0.95;
     filter: alpha(opacity=95);
 }
@@ -189,6 +185,34 @@
 #menu ul li.connexion a:hover{
 	text-decoration: underline blue;
 }
+
+#menu ul ul.niv2 {
+	display:none;
+	margin-left:50px;
+	position: relative;
+	left: 0px; 
+
+}
+#menu ul li.conf:hover ul.niv2{display:block}
+
+#menu ul ul.niv2 li {
+	list-style-type: none; 
+	position: relative; 
+	background-color: #bed6f2;
+	height:100%;
+	width: 140px; 
+	padding-left:5px;
+	text-align: left;
+}
+#menu ul ul.niv2 li.conf a{
+	color:white;
+	font-family: 'Lato-Bold';
+	font-size:
+	padding: 0 0 0 0; 
+}
+
+
+
 /*----------Contener-------*/
 
 #contener{

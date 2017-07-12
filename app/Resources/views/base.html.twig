@@ -25,13 +25,21 @@
 				<h1>AgoraVoeux II</h1>
 			</div>
 			<div id="menu">
-				<ul>
+				<ul {% if app.request.attributes.get('_route') == 'fos_user_security_login' %} hidden {% endif %} >
 					<li class="{% if app.request.attributes.get('_route') == 'accueil' %}encours  {% endif %}liimg accueil" ><a href="{{path('accueil')}}">Accueil</a></li>
 					
 					{% if app.user %}
 						{% for role in app.user.roles %}
 							{% if role in "ROLE_ADMIN" %}
-								<li class="{% if app.request.attributes.get('_route') in ['av_liste_agent_view','liste_add','edit_agent','add_agent'] and not app.request.attributes.get('agent_id') == app.user.id %}encours  {% endif %}liimg agents"><a href="{{path('av_liste_agent_view')}}">Agents</a></li>
+								<li class="{% if app.request.attributes.get('_route') in ['av_liste_agent_view','liste_add','edit_agent','add_agent'] and not app.request.attributes.get('agent_id') == app.user.id %}encours  {% endif %}liimg conf">
+									<a>Conf</a>
+									<ul class="niv2">
+										<li><a href="{{path('av_liste_agent_view')}}">Agents</a></li>
+										<li><a>Résidence</a></li>
+										<li><a>Résidence/poste</a></li>
+									</ul>
+								</li>
+								
 							{% endif %}
 						{% endfor %}
 					{% endif %}

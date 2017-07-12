@@ -1,8 +1,7 @@
 {%extends "::base.html.twig" %}
 {% block stylesheets %}
-	
+	<link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
 {% endblock %}
-//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css
 
 {% block body %}
 <div class = "formulaire">
@@ -84,6 +83,8 @@
 </div>
 {% endblock %}
 {% block javascripts %}
+	 <script src="http://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+    
     <script>
         $( function() {
             $('tbody').sortable({
